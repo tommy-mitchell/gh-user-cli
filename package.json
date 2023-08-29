@@ -1,0 +1,80 @@
+{
+	"name": "gh-user-cli",
+	"version": "0.0.0",
+	"description": "Open the GitHub or NPM profile of the given or current user.",
+	"keywords": [
+		"cli",
+		"cli-app",
+		"command-line",
+		"user",
+		"username",
+		"profile",
+		"github",
+		"gh",
+		"npm",
+		"open",
+		"current"
+	],
+	"license": "MIT",
+	"repository": "tommy-mitchell/gh-user-cli",
+	"author": {
+		"name": "Tommy Mitchell",
+		"url": "https://tommymitchell.io"
+	},
+	"type": "module",
+	"bin": {
+		"gh-user": "dist/cli.js"
+	},
+	"files": [
+		"dist"
+	],
+	"engines": {
+		"node": ">=16.9"
+	},
+	"scripts": {
+		"prepare": "npm run build",
+		"build": "tsc -p tsconfig.build.json && execify --all",
+		"lint": "xo",
+		"test": "tsc --noEmit && c8 npm run ava",
+		"ava": "cross-env NODE_OPTIONS='--loader=tsx --no-warnings=ExperimentalWarning' ava"
+	},
+	"ava": {
+		"files": [
+			"test/**/*.ts",
+			"!test/_*"
+		],
+		"snapshotDir": "test/_snapshots",
+		"extensions": {
+			"ts": "module"
+		},
+		"environmentVariables": {
+			"concurrency": "5"
+		},
+		"nodeArguments": [
+			"--loader=tsx",
+			"--no-warnings=ExperimentalWarning"
+		]
+	},
+	"dependencies": {
+		"execa": "^7.1.1",
+		"meow": "^12.1.1",
+		"open": "^9.1.0",
+		"p-map": "^6.0.0"
+	},
+	"devDependencies": {
+		"@shopify/semaphore": "^3.0.2",
+		"@tommy-mitchell/tsconfig": "^1.1.0",
+		"@types/node": "^16.9",
+		"ava": "^5.3.1",
+		"c8": "^8.0.1",
+		"ci-info": "^3.8.0",
+		"cross-env": "^7.0.3",
+		"execify-cli": "beta",
+		"get-bin-path": "^10.0.0",
+		"is-executable": "^2.0.1",
+		"tsx": "^3.12.7",
+		"type-fest": "^4.3.1",
+		"typescript": "~5.2.2",
+		"xo": "^0.56.0"
+	}
+}
