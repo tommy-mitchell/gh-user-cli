@@ -1,6 +1,6 @@
 {
 	"name": "gh-user-cli",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "Open the GitHub or NPM profile of the given or current user.",
 	"keywords": [
 		"cli",
