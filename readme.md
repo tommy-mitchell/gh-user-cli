@@ -20,7 +20,7 @@ yarn global add gh-user-cli
 
 ```sh
 Usage
-  $ gh-user [name …]
+  $ gh-user [name] […]
 
 Options
   --npm  -n  Open the NPM profile of the given or current user

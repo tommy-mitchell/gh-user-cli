@@ -1,12 +1,11 @@
-#!/usr/bin/env tsx
+#!/usr/bin/env ts-node-esm
 import meow from "meow";
 import open from "open";
-import pMap from "p-map";
 import { githubUsername, npmUsername } from "./helpers.js";
 
 const cli = meow(`
 	Usage
-	  $ gh-user [name …]
+	  $ gh-user [name] […]
 
 	Options
 	  --npm  -n  Open the NPM profile of the given or current user
@@ -37,7 +36,7 @@ if (helpShortFlag) {
 
 const usernames = input.length > 0 ? input : [openNpmProfile ? await npmUsername() : await githubUsername()];
 
-await pMap(usernames, async username => (openNpmProfile
+await Promise.all(usernames.map(async username => (openNpmProfile
 	? open(`https://www.npmjs.com/~${username}`)
 	: open(`https://github.com/${username}`)
-));
+)));

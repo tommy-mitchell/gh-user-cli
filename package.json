@@ -36,43 +36,39 @@
 		"build": "tsc -p tsconfig.build.json && execify --all",
 		"lint": "xo",
 		"test": "tsc --noEmit && c8 npm run ava",
-		"ava": "cross-env NODE_OPTIONS='--loader=tsx --no-warnings=ExperimentalWarning' ava"
+		"ava": "node -e 'if (process.version.startsWith(`v20`)) process.exit(1)' && npm run ava:18 || npm run ava:20",
+		"ava:18": "ava",
+		"ava:20": "cross-env NODE_OPTIONS='--loader=ts-node/esm --loader=esmock --no-warnings=ExperimentalWarning' ava"
 	},
 	"ava": {
 		"files": [
-			"test/**/*.ts",
-			"!test/_*"
+			"test/**/*.ts"
 		],
-		"snapshotDir": "test/_snapshots",
 		"extensions": {
 			"ts": "module"
 		},
-		"environmentVariables": {
-			"concurrency": "5"
-		},
 		"nodeArguments": [
-			"--loader=tsx",
+			"--loader=ts-node/esm",
+			"--loader=esmock",
 			"--no-warnings=ExperimentalWarning"
 		]
 	},
 	"dependencies": {
 		"execa": "^7.1.1",
 		"meow": "^12.1.1",
-		"open": "^9.1.0",
-		"p-map": "^6.0.0"
+		"open": "^9.1.0"
 	},
 	"devDependencies": {
-		"@shopify/semaphore": "^3.0.2",
 		"@tommy-mitchell/tsconfig": "^1.1.0",
 		"@types/node": "^16.9",
 		"ava": "^5.3.1",
 		"c8": "^8.0.1",
-		"ci-info": "^3.8.0",
 		"cross-env": "^7.0.3",
+		"esmock": "^2.3.8",
 		"execify-cli": "beta",
 		"get-bin-path": "^10.0.0",
 		"is-executable": "^2.0.1",
-		"tsx": "^3.12.7",
+		"ts-node": "^10.9.1",
 		"type-fest": "^4.3.1",
 		"typescript": "~5.2.2",
 		"xo": "^0.56.0"
