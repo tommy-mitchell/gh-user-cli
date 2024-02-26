@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node-esm
+#!/usr/bin/env tsimp
 import meow from "meow";
 import open from "open";
 import { githubUsername, npmUsername } from "./helpers.js";
@@ -28,11 +28,7 @@ const cli = meow(`
 	},
 });
 
-const { input, flags: { help: helpShortFlag, npm: openNpmProfile } } = cli;
-
-if (helpShortFlag) {
-	cli.showHelp(0);
-}
+const { input, flags: { npm: openNpmProfile } } = cli;
 
 const usernames = input.length > 0 ? input : [openNpmProfile ? await npmUsername() : await githubUsername()];
 

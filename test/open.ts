@@ -60,7 +60,6 @@ const verifyCli = test.macro<MacroArgs>(async (t, { args, expected: expectations
 					return execaCommand(command, { reject: false, all: true });
 				},
 			},
-			// eslint-disable-next-line quote-props
 			import: { "console": { error: (message: string) => {
 				if (errorMessage) {
 					t.is(message, errorMessage);

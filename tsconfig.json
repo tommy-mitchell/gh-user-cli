@@ -5,8 +5,4 @@
 	"compilerOptions": {
 		"noEmit": true,
 	},
-	"ts-node": {
-		"transpileOnly": true,
-		"esm": true,
-	},
 }
