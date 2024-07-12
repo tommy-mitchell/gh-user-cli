@@ -3,6 +3,7 @@ import meow from "meow";
 import open from "open";
 import { githubUsername, npmUsername } from "./helpers.js";
 
+// dprint-ignore
 const cli = meow(`
 	Usage
 	  $ gh-user [name] […]
@@ -32,7 +33,8 @@ const { input, flags: { npm: openNpmProfile } } = cli;
 
 const usernames = input.length > 0 ? input : [openNpmProfile ? await npmUsername() : await githubUsername()];
 
-await Promise.all(usernames.map(async username => (openNpmProfile
-	? open(`https://www.npmjs.com/~${username}`)
-	: open(`https://github.com/${username}`)
+await Promise.all(usernames.map(async username => (
+	openNpmProfile
+		? open(`https://www.npmjs.com/~${username}`)
+		: open(`https://github.com/${username}`)
 )));

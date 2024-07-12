@@ -10,13 +10,13 @@ npm install --global gh-user-cli
 
 <details>
 <summary>Other Package Managers</summary>
-
-<br />
+<p>
 
 ```sh
 yarn global add gh-user-cli
 ```
 
+</p>
 </details>
 
 ## Usage

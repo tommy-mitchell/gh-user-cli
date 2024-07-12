@@ -9,15 +9,14 @@ export const exit = (message?: string): never => {
 	process.exit(1);
 };
 
-const getUsername = async (command: string, service: string): Promise<string | undefined> => {
+const getUsername = async (command: string, service: string): Promise<string> => {
 	const { all: output, exitCode } = await execaCommand(command, { reject: false, all: true });
 
 	if (exitCode === 0) {
 		return output;
 	}
 
-	exit(`No ${service} username found!`);
-	return undefined;
+	return exit(`No ${service} username found!`);
 };
 
 export const githubUsername = async () => getUsername("git config user.name", "GitHub");

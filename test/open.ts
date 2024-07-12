@@ -10,6 +10,7 @@ class ProcessExitError extends Error {
 	}
 }
 
+// dprint-ignore
 type MacroArgs = [{
 	args: string[];
 } & OneOf<{
@@ -20,7 +21,13 @@ type MacroArgs = [{
 	npmUser: string;
 }>];
 
-const verifyCli = test.macro<MacroArgs>(async (t, { args, expected: expectations = [], errorMessage, githubUser = "", npmUser = "" }) => {
+const verifyCli = test.macro<MacroArgs>(async (t, {
+	args,
+	expected: expectations = [],
+	errorMessage,
+	githubUser = "",
+	npmUser = "",
+}) => {
 	try {
 		await esmock("../src/cli.ts", import.meta.url, {
 			open: (url: string) => {
@@ -41,7 +48,7 @@ const verifyCli = test.macro<MacroArgs>(async (t, { args, expected: expectations
 					throw new ProcessExitError("");
 				},
 			},
-			execa: {
+			"execa": {
 				execaCommand: async (command: string) => {
 					if (command === "git config user.name") {
 						return {
@@ -60,13 +67,17 @@ const verifyCli = test.macro<MacroArgs>(async (t, { args, expected: expectations
 					return execaCommand(command, { reject: false, all: true });
 				},
 			},
-			import: { "console": { error: (message: string) => {
-				if (errorMessage) {
-					t.is(message, errorMessage);
-				} else {
-					t.fail("Expected an error message!");
-				}
-			} } },
+			"import": {
+				console: {
+					error: (message: string) => {
+						if (errorMessage) {
+							t.is(message, errorMessage);
+						} else {
+							t.fail("Expected an error message!");
+						}
+					},
+				},
+			},
 		});
 	} catch (error: unknown) {
 		if (!(error instanceof ProcessExitError)) {
